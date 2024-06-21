@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
+
+    <title>Plant Recommendation</title>
+  </head>
+
+  <style>
+    h1 {
+      color: darkgreen;
+      text-align: center;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+    .card {
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-top: 20px;
+      color: white;
+      border-color: darkgreen;
+      border-width: medium;
+    }
+
+    .card-text {
+      color: black;
+    }
+    .container {
+      background: #dcdcdc;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+    }
+
+    .container2 {
+      background: white;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+      margin-left: 50px;
+    }
+
+    .container-table {
+      background: #dcdcdc;
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+    }
+
+    td {
+      font-weight: Normal;
+      background: lavenderblush;
+    }
+
+    p {
+      font-weight: bold;
+      padding: 0px;
+      font-size: 0.7em;
+      display: inline;
+    }
+
+    .main { 
+    position: relative; 
+    width: 350px; 
+    height: 387px; 
+    background-color: #fff; 
+    border-radius: 20px; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 1); 
+    overflow: hidden; 
+} 
+
+    .selectBox { 
+    position: relative; 
+} 
+  
+.search-box { 
+    width: 100%; 
+    padding: 10px; 
+    border: none; 
+    border-bottom: 1px solid #ccc; 
+    outline: none; 
+    font-size: 16px; 
+} 
+  
+.center-text { 
+    text-align: center; 
+    color: green; 
+} 
+  
+  
+.options { 
+    list-style: none; 
+    padding: 0; 
+    max-height: 250px; 
+    overflow-y: auto; 
+    border-bottom: 1px solid #ccc; 
+} 
+  
+.options li { 
+    padding: 10px; 
+    cursor: pointer; 
+} 
+  
+.options li:hover { 
+    background-color: #f0f0f0; 
+} 
+  
+.selected-option { 
+    padding: 10px; 
+    cursor: pointer; 
+} 
+  
+#clear-button { 
+    background-color: #ff6347; 
+    color: white; 
+    padding: 8px 16px; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+} 
+  
+#clear-button:hover { 
+    background-color: #ff0000; 
+}
+
+.searchBoxElement{
+  background-color: white;
+  border: 1px solid #aaa;
+  position: absolute;
+  max-height: 114px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  line-height: 23px;
+  list-style: none;
+  z-index: 1;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.searchBoxElement span{
+  padding: 0 5px;
+}
+
+.searchBoxElement::-webkit-scrollbar {
+  display:none;
+}
+
+.searchBoxElement li{
+  background-color: white;
+  color: black;
+}
+
+.searchBoxElement li:hover{
+  background-color: #50a0ff;
+  color: white;
+}
+
+.searchBoxElement li.selected{
+  background-color: #50a0ff;
+  color: white;
+}
+
+.refineText{
+  padding: 8px 0 8px 0 !important;
+}
+  </style>
+
+  <body style="background: white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active" >
+            <a class="nav-link" href="#" style="font-size: 1.5em;"
+              ><p>&#127808</p> FloraGenie <p>&#127804</p>
+              <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('medical') }}"
+              >  Medical Plant Recommendation </a
+            >
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('personalise') }}"
+              >Personalised Plant Recommendation</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container my-3 mt-3">
+        <h1 style="font-size: 0.5px;">
+            <p > <br/> </p>
+          </h1>
+      <h1>
+        <span class="text-success">🌿</span>
+
+        FloraGenie : Personalised Plant Recommendation
+
+        <span class="text-success">🌱</span>
+      </h1>
+
+      <form action="/personalised-plant" method="POST">
+
+        <div class="container mt-5">
+          <select class="selectpicker" multiple aria-label="size 3 select example">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+          </select>
+        </div>
+        
+
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-secondary btn-lg">
+              Get Recommendation
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Format plant result -->
+
+    {% if plants %}
+    <div class="container2 my-3 mt-4">
+      {% for plant in plants %}
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="card-body">
+          {% for feature in plant %}
+          <p class="card-text">{{feature|safe}} <br /></p>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/path/to/cdn/jquery.min.js"></script>
+2
+<script src="/path/to/dist/js/jquery-searchbox.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script>
+      new MultiSelectTag("personalise", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search..", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+    </script>
+
+<script>
+    const searchBox = document.querySelector('.search-box'); 
+const options = document.querySelectorAll('.options li'); 
+const selectedOption = document.querySelector('.selected-option'); 
+const clearButton = document.getElementById('clear-button'); 
+  
+// Check if search country present in menu list 
+searchBox.addEventListener('input', () => { 
+    const searchTerm = searchBox.value.toLowerCase(); 
+  
+    options.forEach(option => { 
+        const text = option.textContent.toLowerCase(); 
+        if (text.includes(searchTerm)) { 
+            option.style.display = 'block'; 
+        } else { 
+            option.style.display = 'none'; 
+        } 
+    }); 
+}); 
+  
+// Iterating and printing the selected country name 
+for (const option of options) { 
+    option.addEventListener('click', () => { 
+        const value = option.getAttribute('value'); 
+        selectedOption.textContent =  
+            "You have chosen " + option.textContent; 
+        searchBox.value = ''; 
+        for (const opt of options) { 
+            opt.style.display = 'block'; 
+        } 
+    }); 
+} 
+  
+clearButton.addEventListener('click', function () { 
+    selectedOption.textContent = 'Select an option'; 
+    searchBox.value = ''; 
+    options.forEach(option => { 
+        option.style.display = 'block'; 
+    }); 
+});
+</script>
+
+<script>
+    ('.js-searchBox').searchBox({
+  mode: 2
+});
+</script>
+  </body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <title>Plant Recommendation</title>
+  </head>
+
+  <style>
+    h1 {
+      color: darkgreen;
+      text-align: center;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+    .card {
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-top: 20px;
+      color: white;
+      border-color: darkgreen;
+      border-width: medium;
+    }
+
+    .card-text {
+      color: black;
+    }
+    .container {
+      background: #dcdcdc;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+    }
+
+    .container2 {
+      background: white;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+      margin-left: 50px;
+    }
+
+    .container-table {
+      background: #dcdcdc;
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+    }
+
+    td {
+      font-weight: Normal;
+      background: lavenderblush;
+    }
+
+    p {
+      font-weight: bold;
+      padding: 0px;
+      font-size: 0.7em;
+      display: inline;
+    }
+
+    .nav-link {
+
+    }
+  </style>
+
+  <body style="background: white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active" >
+            <a class="nav-link" href="#" style="font-size: 1.5em;"
+              ><p>&#127808</p> FloraGenie <p>&#127804</p>
+              <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('medical') }}"
+              >  Medical Plant Recommendation </a
+            >
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('personalise') }}"
+              >Personalised Plant Recommendation</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container my-3 mt-3" style="margin-bottom: 30px;">
+      <h1 style="font-size: 0.5px;">
+        <p > <br/> </p>
+      </h1>
+      <h1 >
+        <span class="text-success">🌿</span>
+
+        FloraGenie : Plant Recommendation System
+
+        <span class="text-success">🌱</span>
+      </h1>
+
+      <form action="/predict" method="POST">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="lights" style="margin-top: 30px; margin-bottom: 10px">Light requirement for plant:</label>
+            <select name="light" id="light" multiple>
+              <option value="Light_Low light tolerant">
+                Low light tolerant
+              </option>
+              <option value="Light_Semi shade">Semi shade</option>
+              <option value="Light_Shade growing">Shade growing</option>
+              <option value="Light_Sun growing">Sun growing</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="waters" style="margin-top: 30px; margin-bottom: 10px">Water requirement for plant:</label>
+            <select name="water" id="water" multiple>
+              <option value="Water_Requires_less">Requires less</option>
+              <option value="Water_Normal">Normal</option>
+              <option value="Water_Requires more">Requires more</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="categories" style="margin-top: 30px; margin-bottom: 10px">Category of plant:</label>
+            <select name="category" id="category" multiple>
+              <option value="Category_Bamboos">Bamboos</option>
+              <option value='Category_Bromeliads'>Bromeliads</option>
+              <option value="Category_Cacti & Succulents">
+                Cacti & Succulents
+              </option>
+              <option value='Category_Climbers'>Climbers</option>
+              <option value='Category_Creepers & Vines'>Creepers & Vines</option>
+              <option value='Category_Ferns'>Ferns</option>
+              <option value='Category_Flowering Pot Plants'>Flowering Pot Plants</option>
+              <option value='Category_Fruit Plants'>Fruit Plants</option>
+              <option value='Category_Grasses & Grass like plants'>Grasses & Grass like plants</option>
+              <option value='Category_Groundcovers_lawns'>Groundcovers lawns</option>
+              <option value='Category_Indoor Plants'>Indoor Plants</option>
+              <option value='Category_Lilies & Bulbous plants'>Lilies & Bulbous plants</option>
+              <option value='Category_Medicinal Plants'>Medicinal Plants</option>
+              <option value='Category_Orchids'>Orchids</option>
+              <option value='Category_Palms and Cycads'>Palms and Cycads</option>
+              <option value='Category_Rose_Hybrid_Climbers'>Rose Hybrid Climbers</option>
+              <option value='Category_Rose_Miniature_Floribundas'>Rose Miniature Floribundas</option>
+              <option value='Category_Shrubs'>Shrubs</option>
+              <option value='Category_Spice plants & edible Herbs'>Spice plants & edible Herbs</option>
+              <option value='Category_Terrific Tropicals  The Ideal Gifts'>Terrific Tropicals</option>
+              <option value='Category_Trees'>Trees</option>
+              <option value='Category_Vegetable'>Vegetable</option>
+              <option value='Category_Water & Aquatic Plants'>Water & Aquatic Plants</option>
+
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <label for="colors" style="margin-top: 10px; margin-bottom: 10px">Foliage Color for plant:</label>
+            <select name="color" id="color" multiple>
+              <option value='Foliage_Color_Blue'>Blue</option>
+              <option value='Foliage_Color_Blue Grey or Silver'>Grey</option>
+              <option value='Foliage_Color_Bronze or coppery'>Bronze</option>
+              <option value='Foliage_Color_Brown'>Brown</option>
+              <option value='Foliage_Color_Cream or off white'>Cream</option>
+              <option value='Foliage_Color_Green'>Green</option>
+
+              <option value='Foliage_Color_Orange'>Orange</option>
+              <option value='Foliage_Color_Pink'>Pink</option>
+              <option value='Foliage_Color_Purple'>Purple</option>
+
+              <option value='Foliage_Color_Red'>Red</option>
+              <option value='Foliage_Color_Variegated'>Variegated</option>
+              <option value='Foliage_Color_Very dark green almost black'>Dark green</option>
+              <option value='Foliage_Color_White'>White</option>
+              <option value='Foliage_Color_Yellow'>Yellow</option>
+            </select>
+          </div>
+
+
+          <div class="col-md-4">
+            <label style="margin-top: 10px; margin-bottom: 10px" for="plant forms"
+              >Plant Form:</label
+            >
+            <select name="plantform" id="plantform" multiple>
+              <option value="Plant_Form_Climbing or growing on support">
+                Climbing or growing on support
+              </option>
+              <option value="Plant_Form_Columnar">Columnar</option>
+              <option value="Plant_Form_Low spreading">Low spreading</option>
+              <option value="Plant_Form_Oval">Oval</option>
+              <option value="Plant_Form_Pyramidal">Pyramidal</option>
+              <option value="Plant_Form_Spherical or rounded">Spherical or rounded</option>
+              <option value="Plant_Form_Spreading">Spreading</option>
+              <option value="Plant_Form_Upright or Erect">Upright or Erect</option>
+              <option value="Plant_Form_Weeping">Weeping</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="grownfors" style="margin-top: 10px; margin-bottom: 10px">Primarily Grown for:</label>
+            <select name="grownfor" id="grownfor" multiple>
+              <option value="Primary_Grown_for_Flowers">Flowers</option>
+              <option value="Primary_Grown_for_Foliage">Foliage</option>
+              <option value="Primary_Grown_for_Fruit or Seed">Fruit or Seed</option>
+              <option value="Primary_Grown_for_Roots or tubers">Roots or tubers</option>
+              <option value="Primary_Grown_for_Stems or Timber">Stems or Timber</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="heights" style="margin-top: 10px; margin-bottom: 10px">Height of the plant:</label>
+            <select name="height" id="height" multiple>
+              <option value="Height_or_Length_Less than 50 cms">Less than 50 cms</option>
+              <option value="Height_or_Length_50 cms to 100 cms">50 cms to 100 cms</option>
+              <option value="Height_or_Length_1 to 2 meters">1 to 2 meters</option>
+              <option value="Height_or_Length_2 to 4 meters">2 to 4 meters</option>
+              <option value="Height_or_Length_4 to 6 meters">4 to 6 meters</option>
+              <option value="Height_or_Length_6 to 8 meters">6 to 8 meters</option>
+              <option value="Height_or_Length_8 to 12 meters">8 to 12 meters</option>
+              <option value="Height_or_Length_More than 12 meters">More than 12 meter</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="spreads" style="margin-top: 10px; margin-bottom: 10px">Spread of the plant:</label>
+            <select name="spread" id="spread" multiple>
+              <option value="Spread_or_Width_less_than_1_meter">Less than 1 meter</option>
+              <option value="Spread_or_Width_1 to 2 meters">1 to 2 meters</option>
+              <option value="Spread_or_Width_2 to 4 meters">2 to 4 meters</option>
+              <option value="Spread_or_Width_4 to 6 meters">4 to 6 meters</option>
+              <option value="Spread_or_Width_6 to 8 meters">6 to 8 meters</option>
+              <option value="Spread_or_Width_8 to 12 meters">8 to 12 meters</option>
+              <option value="Spread_or_Width_More than 12 meters">More than 12 meters</option>
+              
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="flowrings" style="margin-top: 10px; margin-bottom: 10px">Flowering Season of the plant:</label>
+            <select name="flowring" id="flowring" multiple>
+              <option value="Flowering_Season_Feb_Mar_Spring">Feb to Mar Spring</option>
+              <option value="Flowering_Season_Apr_May_Summer">Apr May Summer</option>
+              <option value="Flowering_Season_Jun_Sep_Monsoon">Jun Sep Monsoon</option>
+              <option value="Flowering_Season_Oct_Nov_Autumn">Oct Nov Autumn</option>
+              <option value="Flowering_Season_Dec_Jan_Winter">Dec Jan Winter</option>
+              <option value="Flowering_Season_Year_round_flowering">Year round flowering</option>
+              <option value="Flowering_Season_Flowers once in many years">Flowers once in many years</option>
+              <option value="Flowering_Season_Non Flowering">Non Flowering</option>
+              <option value="Flowering_Season_Flowers are inconspicuous">Flowers are inconspicuous</option>
+              
+              
+            </select>
+          </div>
+
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-secondary btn-lg">
+              Get Recommendation
+            </button>
+          </div>
+        </div>
+      </form>
+
+      {% if result %}
+
+      <div class="card bg-dark" style="width: 55rem">
+        <div class="card-body">
+          <h5 class="card-title">Recommended Plant for gardening:</h5>
+          <p class="card-text">{{result}}</p>
+        </div>
+      </div>
+
+      {% endif %}
+    </div>
+
+   {% if data %}
+
+    <div class="container my-3 mt-3">
+      <table class="td">
+        <tr>
+          {% for header in headings %}
+          <th>{{header}}</th>
+          {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+          {% for cell in row %}
+          <td>{{cell}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    {% endif %}
+
+    <!-- Format plant result -->
+
+    {% if plants %}
+    <div class="container2 my-3 mt-4">
+
+      
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="card-body">
+          {% for feature in input_feature %}
+          <p class="card-text">{{feature|safe}} <br /></p>
+          {% endfor %}
+        </div>
+      </div>
+      
+      {% for plant in plants %}
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="card-body">
+          {% for feature in plant %}
+          <p class="card-text">{{feature|safe}} <br /></p>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+
+    <!-- Format plant result -->
+
+    {% if plantsimage %}
+    <div class="container2 my-3 mt-4">
+
+      
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="card-body">
+          {% for feature in input_feature %}
+          <p class="card-text">{{feature|safe}} <br /></p>
+          {% endfor %}
+        </div>
+      </div>
+      
+      {% for i in range(total) %}
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="row">
+        <div class="card-body">
+            
+          {% if images_flag[i] %}
+            <div class="row">
+                <div class="col-sm-2">
+                <img src="{{ url_for('static', filename=images[i][0]) }}" style="width: 150px; height: 150px; margin: 20px; " alt="...">
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][1]) }}" style="width: 150px; height: 150px; margin: 20px; " alt="...">
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][2]) }}" style="width: 150px; height: 150px; margin: 20px; " alt="...">
+                </div>
+    
+                <div class="col-sm-2">
+                        <img src="{{ url_for('static', filename=images[i][3]) }}" style="width: 150px; height: 150px; margin: 20px; " alt="..." >
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][4]) }}" style="width: 150px; height: 150px; margin: 20px; " alt="...">
+            </div>
+              </div>
+              {% endif %}
+
+            <div>
+
+          {% for plantinfo in plantsimage[i] %}
+          <p class="card-text">{{plantinfo|safe}} <br /></p>
+          {% endfor %}
+        </div>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script>
+      new MultiSelectTag("light", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("water", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("category", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("plantform", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("color", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("grownfor", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("height", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("spread", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+      
+      new MultiSelectTag("flowring", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+    </script>
+  </body>
+</html>

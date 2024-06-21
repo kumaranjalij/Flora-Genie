@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <title>Plant Recommendation</title>
+  </head>
+
+  <style>
+    h1 {
+      color: darkgreen;
+      text-align: center;
+    }
+
+    .warning {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+    .card {
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-top: 20px;
+      color: white;
+      border-color: darkgreen;
+      border-width: medium;
+    }
+
+    .card-text {
+      color: black;
+    }
+    .container {
+      background: #dcdcdc;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+    }
+
+    .container2 {
+      background: white;
+      /* background: #fff; */
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+      border-color: darkgreen;
+      border-width: thick;
+      margin-left: 50px;
+    }
+
+    .container-table {
+      background: #dcdcdc;
+      font-weight: bold;
+      padding-bottom: 10px;
+      border-radius: 15px;
+    }
+
+    td {
+      font-weight: Normal;
+      background: lavenderblush;
+    }
+
+    p {
+      font-weight: bold;
+      padding: 0px;
+      font-size: 0.7em;
+      display: inline;
+    }
+  </style>
+
+  <body style="background: white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#"></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active" >
+            <a class="nav-link" href="#" style="font-size: 1.5em;"
+              ><p>&#127808</p> FloraGenie <p>&#127804</p>
+              <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('medical') }}"
+              >  Medical Plant Recommendation </a
+            >
+          </li>
+          <li style="padding-top: 7px;">
+            <a class="nav-link" >  |  </a>
+          </li>
+
+          <li class="nav-item" style="padding-top: 7px;">
+            <a class="nav-link" href="{{ url_for('personalise') }}"
+              >Personalised Plant Recommendation</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container my-3 mt-3">
+        <h1 style="font-size: 0.5px;">
+            <p > <br/> </p>
+          </h1>
+      <h1>
+        <span class="text-success">🌿</span>
+
+        FloraGenie : Medical Plant Recommendation
+
+        <span class="text-success">🌱</span>
+      </h1>
+
+      <form action="/predict-medical" method="POST">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="categories" style="margin-top: 30px; margin-bottom: 30px">Category of plant:</label>
+            <select name="category" id="category" multiple>
+                <option value="Category_Annuals">Annuals</option>
+                <option value="Category_Aquatic Plants">Aquatic Plants</option>
+                <option value="Category_Aquatic and Marginal Plants">Aquatic and Marginal Plants</option>
+                <option value="Category_Bamboos">Bamboos</option>
+                <option value="Category_Bromeliads">Bromeliads</option>
+                <option value="Category_Bulbous Plants">Bulbous Plants</option>
+                <option value="Category_Bulbs">Bulbs</option>
+                <option value="Category_Cacti & Succulents">Cacti & Succulents</option>
+                <option value="Category_Climbers">Climbers</option>
+                <option value="Category_Climbers and Creepers">Climbers and Creepers</option>
+                <option value="Category_Corms & Tubers">Corms & Tubers</option>
+                <option value="Category_Creepers & Vines">Creepers & Vines</option>
+                <option value="Category_Flowering Pot Plants">Flowering Pot Plants</option>
+                <option value="Category_Fruit Plants">Fruit Plants</option>
+                <option value="Category_Grasses & Grass like plants">Grasses & Grass like plants</option>
+                <option value="Category_Herbaceous Plants">Herbaceous Plants</option>
+                <option value="Category_Herbs">Herbs</option>
+                <option value="Category_Indoor Plants">Indoor Plants</option>
+                <option value="Category_Lilies & Bulbous plants">Lilies & Bulbous plants</option>
+                <option value="Category_Mandarin">Mandarin</option>
+                <option value="Category_Medicinal Plants">Medicinal Plants</option>
+                <option value="Category_Orange">Orange</option>
+                <option value="Category_Orchids">Orchids</option>
+                <option value="Category_Palms and Cycads">Palms and Cycads</option>
+                <option value="Category_Shrubs">Shrubs</option>
+                <option value="Category_Spice plants & edible Herbs">Spice plants & edible Herbs</option>
+                <option value="Category_Trees">Trees</option>
+                <option value="Category_Vegetable">Vegetable</option>
+                <option value="Category_Water & Aquatic Plants">Water & Aquatic Plants</option>
+                <option value="Category_Rose_Hybrid_Climbers">Rose Hybrid Climbers</option>
+                <option value="Category_Rose_Miniature_Floribundas">Rose Miniature Floribundas</option>
+                <option value="Category_Groundcovers_lawns">Groundcovers lawns</option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="diseases" style="margin-top: 30px; margin-bottom: 30px">Medical disease:</label>
+            <select name="diseases" id="diseases" multiple>
+              <<option value="Diseases_A bacterial disease on the soles of feet">A bacterial disease on the soles of feet</option>
+              <option value="Diseases_Abdominal neoplasms">Abdominal neoplasms</option>
+              <option value="Diseases_Abdominal pain">Abdominal pain</option>
+              <option value="Diseases_Abdominal swelling">Abdominal swelling</option>
+              <option value="Diseases_Abnormal delivery">Abnormal delivery</option>
+              <option value="Diseases_Abortifacient agents">Abortifacient agents</option>
+              <option value="Diseases_Abortion">Abortion</option>
+              <option value="Diseases_Abrasions">Abrasions</option>
+              <option value="Diseases_Abscess">Abscess</option>
+              <option value="Diseases_Acaricide">Acaricide</option>
+              <option value="Diseases_Acne vulgaris">Acne vulgaris</option>
+              <option value="Diseases_Acquired immunodeficiency syndrome">Acquired immunodeficiency syndrome</option>
+              <option value="Diseases_Adenocarcinoma">Adenocarcinoma</option>
+              <option value="Diseases_Adrenergic antagonists">Adrenergic antagonists</option>
+              <option value="Diseases_Adynamia">Adynamia</option>
+              <option value="Diseases_Agglutination">Agglutination</option>
+              <option value="Diseases_Alcoholic fatty liver">Alcoholic fatty liver</option>
+              <option value="Diseases_Alcoholic gastritis">Alcoholic gastritis</option>
+              <option value="Diseases_Alcoholic intoxication">Alcoholic intoxication</option>
+              <option value="Diseases_Alcoholism">Alcoholism</option>
+              <option value="Diseases_Allelopathy">Allelopathy</option>
+              <option value="Diseases_Allergens">Allergens</option>
+              <option value="Diseases_Alopecia areata">Alopecia areata</option>
+              <option value="Diseases_Alpha rhythm">Alpha rhythm</option>
+              <option value="Diseases_Alzheimer disease">Alzheimer disease</option>
+              <option value="Diseases_Amenorrhea">Amenorrhea</option>
+              <option value="Diseases_Amnesia">Amnesia</option>
+              <option value="Diseases_Analgesia">Analgesia</option>
+              <option value="Diseases_Analgesics">Analgesics</option>
+              <option value="Diseases_Anaphylaxis">Anaphylaxis</option>
+              <option value="Diseases_Androgen antagonists">Androgen antagonists</option>
+              <option value="Diseases_Androgens">Androgens</option>
+              <option value="Diseases_Anemia">Anemia</option>
+              <option value="Diseases_Anesthesia">Anesthesia</option>
+              <option value="Diseases_Anesthetics">Anesthetics</option>
+              <option value="Diseases_Angina pectoris">Angina pectoris</option>
+              <option value="Diseases_Angiotensin-converting enzyme inhibitors">Angiotensin-converting enzyme inhibitors</option>
+              <option value="Diseases_Anorexia">Anorexia</option>
+              <option value="Diseases_Antacids">Antacids</option>
+              <option value="Diseases_Anthelmintics">Anthelmintics</option>
+              <option value="Diseases_Anthrax">Anthrax</option>
+              <option value="Diseases_Anti-HIV agents">Anti-HIV agents</option>
+              <option value="Diseases_Anti-anxiety agents">Anti-anxiety agents</option>
+              <option value="Diseases_Anti-arrhythmia agents">Anti-arrhythmia agents</option>
+              <option value="Diseases_Anti-bacterial agents">Anti-bacterial agents</option>
+              <option value="Diseases_Anti-dyskinesia agents">Anti-dyskinesia agents</option>
+              <option value="Diseases_Anti-infective agents">Anti-infective agents</option>
+              <option value="Diseases_Anti-inflammatory agents">Anti-inflammatory agents</option>
+              <option value="Diseases_Anti-lipolytic factor">Anti-lipolytic factor</option>
+              <option value="Diseases_Anti-obesity agents">Anti-obesity agents</option>
+              <option value="Diseases_Anti-poisoning">Anti-poisoning</option>
+              <option value="Diseases_Anticoagulants">Anticoagulants</option>
+              <option value="Diseases_Anticonvulsants">Anticonvulsants</option>
+              <option value="Diseases_Antidepressive agents">Antidepressive agents</option>
+              <option value="Diseases_Antidiuretic agents">Antidiuretic agents</option>
+              <option value="Diseases_Antidotes">Antidotes</option>
+              <option value="Diseases_Antiemetics">Antiemetics</option>
+              <option value="Diseases_Antifibrinolytic agents">Antifibrinolytic agents</option>
+              <option value="Diseases_Antifungal agents">Antifungal agents</option>
+              <option value="Diseases_Antihypertensive agents">Antihypertensive agents</option>
+              <option value="Diseases_Antimutagenic agents">Antimutagenic agents</option>
+              <option value="Diseases_Antinematodal agents">Antinematodal agents</option>
+              <option value="Diseases_Antineoplastic agents">Antineoplastic agents</option>
+              <option value="Diseases_Antioxidants">Antioxidants</option>
+              <option value="Diseases_Antiparasitic agents">Antiparasitic agents</option>
+              <option value="Diseases_Antiperiodic">Antiperiodic</option>
+              <option value="Diseases_Antiprotozoal agents">Antiprotozoal agents</option>
+              <option value="Diseases_Antipruritics">Antipruritics</option>
+              <option value="Diseases_Antipyretics">Antipyretics</option>
+              <option value="Diseases_Antirheumatic agents">Antirheumatic agents</option>
+              <option value="Diseases_Antispermatogenic agents">Antispermatogenic agents</option>
+              <option value="Diseases_Antithyroid agents">Antithyroid agents</option>
+              <option value="Diseases_Antitoxins">Antitoxins</option>
+              <option value="Diseases_Antitubercular agents">Antitubercular agents</option>
+              <option value="Diseases_Antitussive agents">Antitussive agents</option>
+              <option value="Diseases_Antiviral agents">Antiviral agents</option>
+              <option value="Diseases_Anuria">Anuria</option>
+              <option value="Diseases_Anxiety">Anxiety</option>
+              <option value="Diseases_Anxiety disorders">Anxiety disorders</option>
+              <option value="Diseases_Aphrodisiacs">Aphrodisiacs</option>
+              <option value="Diseases_Apnea">Apnea</option>
+              <option value="Diseases_Appendicitis">Appendicitis</option>
+              <option value="Diseases_Appetite stimulants">Appetite stimulants</option>
+              <option value="Diseases_Arrhythmias">Arrhythmias</option>
+              <option value="Diseases_Arteriosclerosis">Arteriosclerosis</option>
+              <option value="Diseases_Arthralgia">Arthralgia</option>
+              <option value="Diseases_Arthritis">Arthritis</option>
+              <option value="Diseases_Ascariasis">Ascariasis</option>
+              <option value="Diseases_Ascaris">Ascaris</option>
+              <option value="Diseases_Ascites">Ascites</option>
+              <option value="Diseases_Asthenia">Asthenia</option>
+              <option value="Diseases_Asthenopia">Asthenopia</option>
+              <option value="Diseases_Asthma">Asthma</option>
+              <option value="Diseases_Astringents">Astringents</option>
+              <option value="Diseases_Atherosclerosis">Atherosclerosis</option>
+              <option value="Diseases_Atrophy">Atrophy</option>
+              <option value="Diseases_Attention deficit disorder with hyperactivity">Attention deficit disorder with hyperactivity</option>
+              <option value="Diseases_Autoimmune diseases">Autoimmune diseases</option>
+              <option value="Diseases_Azoospermia">Azoospermia</option>
+              <option value="Diseases_Back pain">Back pain</option>
+              <option value="Diseases_Balanitis">Balanitis</option>
+              <option value="Diseases_Beriberi">Beriberi</option>
+              <option value="Diseases_Bile acids and salts">Bile acids and salts</option>
+              <option value="Diseases_Biliary tract diseases">Biliary tract diseases</option>
+              <option value="Diseases_Bites and stings">Bites and stings</option>
+              <option value="Diseases_Bladder hemorrhage">Bladder hemorrhage</option>
+              <option value="Diseases_Blindness">Blindness</option>
+              <option value="Diseases_Blister">Blister</option>
+              <option value="Diseases_Blood glucose regulation">Blood glucose regulation</option>
+              <option value="Diseases_Blood pressure regulation">Blood pressure regulation</option>
+              <option value="Diseases_Body odor">Body odor</option>
+              <option value="Diseases_Botulism">Botulism</option>
+              <option value="Diseases_Bowel dysfunction">Bowel dysfunction</option>
+              <option value="Diseases_Bradycardia">Bradycardia</option>
+              <option value="Diseases_Brain concussion">Brain concussion</option>
+              <option value="Diseases_Brain diseases">Brain diseases</option>
+              <option value="Diseases_Brain edema">Brain edema</option>
+              <option value="Diseases_Breast diseases">Breast diseases</option>
+              <option value="Diseases_Breast neoplasms">Breast neoplasms</option>
+              <option value="Diseases_Bronchial diseases">Bronchial diseases</option>
+              <option value="Diseases_Bronchiectasis">Bronchiectasis</option>
+              <option value="Diseases_Bronchitis">Bronchitis</option>
+              <option value="Diseases_Bronchodilator agents">Bronchodilator agents</option>
+              <option value="Diseases_Burns">Burns</option>
+              <option value="Diseases_Cachexia">Cachexia</option>
+              <option value="Diseases_Calculi">Calculi</option>
+              <option value="Diseases_Callosities">Callosities</option>
+              <option value="Diseases_Candidiasis">Candidiasis</option>
+              <option value="Diseases_Capillary permeability">Capillary permeability</option>
+              <option value="Diseases_Carbuncle">Carbuncle</option>
+              <option value="Diseases_Carcinogens">Carcinogens</option>
+              <option value="Diseases_Carcinoma">Carcinoma</option>
+              <option value="Diseases_Carcinoma 256">Carcinoma 256</option>
+              <option value="Diseases_Cardiomyopathies">Cardiomyopathies</option>
+              <option value="Diseases_Cardiotonic agents">Cardiotonic agents</option>
+              <option value="Diseases_Cardiotoxins">Cardiotoxins</option>
+              <option value="Diseases_Cardiovascular agents">Cardiovascular agents</option>
+              <option value="Diseases_Cardiovascular diseases">Cardiovascular diseases</option>
+              <option value="Diseases_Cardiovascular system">Cardiovascular system</option>
+              <option value="Diseases_Cariostatic agents">Cariostatic agents</option>
+              <option value="Diseases_Carrageenan">Carrageenan</option>
+              <option value="Diseases_Cataract">Cataract</option>
+              <option value="Diseases_Cathartics">Cathartics</option>
+              <option value="Diseases_Celiac disease">Celiac disease</option>
+              <option value="Diseases_Cellulitis">Cellulitis</option>
+              <option value="Diseases_Central nervous system depressants">Central nervous system depressants</option>
+              <option value="Diseases_Central nervous system diseases">Central nervous system diseases</option>
+              <option value="Diseases_Central nervous system stimulants">Central nervous system stimulants</option>
+              <option value="Diseases_Cerebrovascular circulation">Cerebrovascular circulation</option>
+              <option value="Diseases_Cervical dilatation">Cervical dilatation</option>
+              <option value="Diseases_Cestoda">Cestoda</option>
+              <option value="Diseases_Cheilitis">Cheilitis</option>
+              <option value="Diseases_Chemoprevention">Chemoprevention</option>
+              <option value="Diseases_Chest pain">Chest pain</option>
+              <option value="Diseases_Chickenpox">Chickenpox</option>
+              <option value="Diseases_Chilblains">Chilblains</option>
+              <option value="Diseases_Child health">Child health</option>
+              <option value="Diseases_Cholagogues and choleretics">Cholagogues and choleretics</option>
+              <option value="Diseases_Cholera">Cholera</option>
+              <option value="Diseases_Cholestasis">Cholestasis</option>
+              <option value="Diseases_Cholesterol">Cholesterol</option>
+              <option value="Diseases_Cholinergic agents">Cholinergic agents</option>
+              <option value="Diseases_Cholinergic antagonists">Cholinergic antagonists</option>
+              <option value="Diseases_Cholinesterase inhibitors">Cholinesterase inhibitors</option>
+              <option value="Diseases_Chorea">Chorea</option>
+              <option value="Diseases_Chronic disease">Chronic disease</option>
+              <option value="Diseases_Chylous ascites">Chylous ascites</option>
+              <option value="Diseases_Cicatrix">Cicatrix</option>
+              <option value="Diseases_Coagulants">Coagulants</option>
+              <option value="Diseases_Colic">Colic</option>
+              <option value="Diseases_Colitis">Colitis</option>
+              <option value="Diseases_Colonic diseases">Colonic diseases</option>
+              <option value="Diseases_Colonic neoplasms">Colonic neoplasms</option>
+              <option value="Diseases_Coma">Coma</option>
+              <option value="Diseases_Common cold">Common cold</option>
+              <option value="Diseases_Condiments">Condiments</option>
+              <option value="Diseases_Condylomata acuminata">Condylomata acuminata</option>
+              <option value="Diseases_Confusion">Confusion</option>
+              <option value="Diseases_Conjunctivitis">Conjunctivitis</option>
+              <option value="Diseases_Constipation">Constipation</option>
+              <option value="Diseases_Contraception">Contraception</option>
+              <option value="Diseases_Contraceptive agents">Contraceptive agents</option>
+              <option value="Diseases_Contraceptives">Contraceptives</option>
+              <option value="Diseases_Contusions">Contusions</option>
+              <option value="Diseases_Convalescence">Convalescence</option>
+              <option value="Diseases_Cooling effect on body">Cooling effect on body</option>
+              <option value="Diseases_Corneal diseases">Corneal diseases</option>
+              <option value="Diseases_Corneal opacity">Corneal opacity</option>
+              <option value="Diseases_Coronary artery disease">Coronary artery disease</option>
+              <option value="Diseases_Coronary circulation">Coronary circulation</option>
+              <option value="Diseases_Coronary disease">Coronary disease</option>
+              <option value="Diseases_Coronary thrombosis">Coronary thrombosis</option>
+              <option value="Diseases_Cosmetics">Cosmetics</option>
+              <option value="Diseases_Cough">Cough</option>
+              <option value="Diseases_Counterirritant">Counterirritant</option>
+              <option value="Diseases_Cystitis">Cystitis</option>
+              <option value="Diseases_Cysts">Cysts</option>
+              <option value="Diseases_Dandruff">Dandruff</option>
+              <option value="Diseases_Deafness">Deafness</option>
+              <option value="Diseases_Delayed puberty">Delayed puberty</option>
+              <option value="Diseases_Delirium">Delirium</option>
+              <option value="Diseases_Dementia">Dementia</option>
+              <option value="Diseases_Demulcents">Demulcents</option>
+              <option value="Diseases_Dengue virus">Dengue virus</option>
+              <option value="Diseases_Dental caries">Dental caries</option>
+              <option value="Diseases_Dentifrices">Dentifrices</option>
+              <option value="Diseases_Dentition">Dentition</option>
+              <option value="Diseases_Deobstruent">Deobstruent</option>
+              <option value="Diseases_Depression">Depression</option>
+              <option value="Diseases_Depressive disorder">Depressive disorder</option>
+              <option value="Diseases_Depurative">Depurative</option>
+              <option value="Diseases_Dermatitis">Dermatitis</option>
+              <option value="Diseases_Dermatologic agents">Dermatologic agents</option>
+              <option value="Diseases_Dermatomycoses">Dermatomycoses</option>
+              <option value="Diseases_Diabetes mellitus">Diabetes mellitus</option>
+              <option value="Diseases_Diabetic foot">Diabetic foot</option>
+              <option value="Diseases_Diabetic retinopathy">Diabetic retinopathy</option>
+              <option value="Diseases_Diaphoretic">Diaphoretic</option>
+              <option value="Diseases_Diarrhea">Diarrhea</option>
+              <option value="Diseases_Diet">Diet</option>
+              <option value="Diseases_Digestive system diseases">Digestive system diseases</option>
+              <option value="Diseases_Diphtheria">Diphtheria</option>
+              <option value="Diseases_Disease susceptibility">Disease susceptibility</option>
+              <option value="Diseases_Disinfectants">Disinfectants</option>
+              <option value="Diseases_Disorder of ejaculation">Disorder of ejaculation</option>
+              <option value="Diseases_Disorder of head">Disorder of head</option>
+              <option value="Diseases_Disorder of mucous membrane">Disorder of mucous membrane</option>
+              <option value="Diseases_Disorder of ovary">Disorder of ovary</option>
+              <option value="Diseases_Diuretics">Diuretics</option>
+              <option value="Diseases_Dizziness">Dizziness</option>
+              <option value="Diseases_Dopamine antagonists">Dopamine antagonists</option>
+              <option value="Diseases_Dracunculiasis">Dracunculiasis</option>
+              <option value="Diseases_Dry throat">Dry throat</option>
+              <option value="Diseases_Dysentery">Dysentery</option>
+              <option value="Diseases_Dysmenorrhea">Dysmenorrhea</option>
+              <option value="Diseases_Dyspepsia">Dyspepsia</option>
+              <option value="Diseases_Dyspnea">Dyspnea</option>
+              <option value="Diseases_Dystocia">Dystocia</option>
+              <option value="Diseases_Dysuria">Dysuria</option>
+              <option value="Diseases_Ear diseases">Ear diseases</option>
+              <option value="Diseases_Earache">Earache</option>
+              <option value="Diseases_Eczema">Eczema</option>
+              <option value="Diseases_Edema">Edema</option>
+              <option value="Diseases_Effects on central nervous system">Effects on central nervous system</option>
+              <option value="Diseases_Elephantiasis">Elephantiasis</option>
+              <option value="Diseases_Emaciation">Emaciation</option>
+              <option value="Diseases_Emetics">Emetics</option>
+              <option value="Diseases_Emollients">Emollients</option>
+              <option value="Diseases_Encephalitis">Encephalitis</option>
+              <option value="Diseases_Endocrine system diseases">Endocrine system diseases</option>
+              <option value="Diseases_Endophthalmitis">Endophthalmitis</option>
+              <option value="Diseases_Enema">Enema</option>
+              <option value="Diseases_Enteritis">Enteritis</option>
+              <option value="Diseases_Enterobius">Enterobius</option>
+              <option value="Diseases_Enuresis">Enuresis</option>
+              <option value="Diseases_Ephemeral fever virus">Ephemeral fever virus</option>
+              <option value="Diseases_Epididymitis">Epididymitis</option>
+              <option value="Diseases_Epilepsy">Epilepsy</option>
+              <option value="Diseases_Epistaxis">Epistaxis</option>
+              <option value="Diseases_Erectile dysfunction">Erectile dysfunction</option>
+              <option value="Diseases_Erysipelas">Erysipelas</option>
+              <option value="Diseases_Erythema">Erythema</option>
+              <option value="Diseases_Erythrocyte aggregation">Erythrocyte aggregation</option>
+              <option value="Diseases_Esophageal neoplasms">Esophageal neoplasms</option>
+              <option value="Diseases_Estrogen receptor modulators">Estrogen receptor modulators</option>
+              <option value="Diseases_Exanthema">Exanthema</option>
+              <option value="Diseases_Expectorants">Expectorants</option>
+              <option value="Diseases_Exudates and transudates">Exudates and transudates</option>
+              <option value="Diseases_Eye burn">Eye burn</option>
+              <option value="Diseases_Eye diseases">Eye diseases</option>
+              <option value="Diseases_Eye drops">Eye drops</option>
+              <option value="Diseases_Eye infections">Eye infections</option>
+              <option value="Diseases_Eye injuries">Eye injuries</option>
+              <option value="Diseases_Eye pain">Eye pain</option>
+              <option value="Diseases_Eyelid diseases">Eyelid diseases</option>
+              <option value="Diseases_Facial paralysis">Facial paralysis</option>
+              <option value="Diseases_Fatigue">Fatigue</option>
+              <option value="Diseases_Female urogenital diseases">Female urogenital diseases</option>
+              <option value="Diseases_Fertility agents">Fertility agents</option>
+              <option value="Diseases_Fever">Fever</option>
+              <option value="Diseases_Fibrinolytic agents">Fibrinolytic agents</option>
+              <option value="Diseases_Fibromyalgia">Fibromyalgia</option>
+              <option value="Diseases_Fibrosis">Fibrosis</option>
+              <option value="Diseases_Filariasis">Filariasis</option>
+              <option value="Diseases_Fishes">Fishes</option>
+              <option value="Diseases_Fissure">Fissure</option>
+              <option value="Diseases_Fissure in ano">Fissure in ano</option>
+              <option value="Diseases_Fistula">Fistula</option>
+              <option value="Diseases_Flatulence">Flatulence</option>
+              <option value="Diseases_Flea infestations">Flea infestations</option>
+              <option value="Diseases_Foodborne diseases">Foodborne diseases</option>
+              <option value="Diseases_Foot ulcer">Foot ulcer</option>
+              <option value="Diseases_Fractures">Fractures</option>
+              <option value="Diseases_Freckles">Freckles</option>
+              <option value="Diseases_Frostbite">Frostbite</option>
+              <option value="Diseases_Furunculosis">Furunculosis</option>
+              <option value="Diseases_Galactogogues">Galactogogues</option>
+              <option value="Diseases_Gallbladder diseases">Gallbladder diseases</option>
+              <option value="Diseases_Gallbladder emptying">Gallbladder emptying</option>
+              <option value="Diseases_Gallstones">Gallstones</option>
+              <option value="Diseases_Gangrene">Gangrene</option>
+              <option value="Diseases_Gastric acid">Gastric acid</option>
+              <option value="Diseases_Gastritis">Gastritis</option>
+              <option value="Diseases_Gastroenteritis">Gastroenteritis</option>
+              <option value="Diseases_Gastrointestinal agents">Gastrointestinal agents</option>
+              <option value="Diseases_Gastrointestinal diseases">Gastrointestinal diseases</option>
+              <option value="Diseases_Gastrointestinal hemorrhage">Gastrointestinal hemorrhage</option>
+              <option value="Diseases_Gastrointestinal motility">Gastrointestinal motility</option>
+              <option value="Diseases_Gastrointestinal tract">Gastrointestinal tract</option>
+              <option value="Diseases_Gastroschisis">Gastroschisis</option>
+              <option value="Diseases_General tonic for rejuvenation">General tonic for rejuvenation</option>
+              <option value="Diseases_Genital diseases">Genital diseases</option>
+              <option value="Diseases_Genital infection">Genital infection</option>
+              <option value="Diseases_Giardia">Giardia</option>
+              <option value="Diseases_Gingival hemorrhage">Gingival hemorrhage</option>
+              <option value="Diseases_Gingivitis">Gingivitis</option>
+              <option value="Diseases_Glycosuria">Glycosuria</option>
+              <option value="Diseases_Goiter">Goiter</option>
+              <option value="Diseases_Gonorrhea">Gonorrhea</option>
+              <option value="Diseases_Gout">Gout</option>
+              <option value="Diseases_Graves ophthalmopathy">Graves ophthalmopathy</option>
+              <option value="Diseases_HIV infections">HIV infections</option>
+              <option value="Diseases_HIV integrase inhibitors">HIV integrase inhibitors</option>
+              <option value="Diseases_Hair diseases">Hair diseases</option>
+              <option value="Diseases_Hair dyes">Hair dyes</option>
+              <option value="Diseases_Hair loss">Hair loss</option>
+              <option value="Diseases_Hair preparations">Hair preparations</option>
+              <option value="Diseases_Halitosis">Halitosis</option>
+              <option value="Diseases_Hallucinations">Hallucinations</option>
+              <option value="Diseases_Hallucinogens">Hallucinogens</option>
+              <option value="Diseases_Headache">Headache</option>
+              <option value="Diseases_Heart diseases">Heart diseases</option>
+              <option value="Diseases_Heart rate">Heart rate</option>
+              <option value="Diseases_Heartburn">Heartburn</option>
+              <option value="Diseases_Helminthiasis">Helminthiasis</option>
+              <option value="Diseases_Hemagglutination">Hemagglutination</option>
+              <option value="Diseases_Hematemesis">Hematemesis</option>
+              <option value="Diseases_Hematinics">Hematinics</option>
+              <option value="Diseases_Hematologic diseases">Hematologic diseases</option>
+              <option value="Diseases_Hematoma">Hematoma</option>
+              <option value="Diseases_Hematuria">Hematuria</option>
+              <option value="Diseases_Hemiplegia">Hemiplegia</option>
+              <option value="Diseases_Hemolysis">Hemolysis</option>
+              <option value="Diseases_Hemophilia a">Hemophilia a</option>
+              <option value="Diseases_Hemoptysis">Hemoptysis</option>
+              <option value="Diseases_Hemorrhage">Hemorrhage</option>
+              <option value="Diseases_Hemorrhagic stroke">Hemorrhagic stroke</option>
+              <option value="Diseases_Hemorrhoids">Hemorrhoids</option>
+              <option value="Diseases_Hemostasis">Hemostasis</option>
+              <option value="Diseases_Hemostatics">Hemostatics</option>
+              <option value="Diseases_Hepatitis">Hepatitis</option>
+              <option value="Diseases_Hepatitis b">Hepatitis b</option>
+              <option value="Diseases_Hepatomegaly">Hepatomegaly</option>
+              <option value="Diseases_Hernia">Hernia</option>
+              <option value="Diseases_Herpes simplex">Herpes simplex</option>
+              <option value="Diseases_Herpesvirus 2">Herpesvirus 2</option>
+              <option value="Diseases_Herpesvirus 4">Herpesvirus 4</option>
+              <option value="Diseases_Hiccup">Hiccup</option>
+              <option value="Diseases_Histamine antagonists">Histamine antagonists</option>
+              <option value="Diseases_Histamine release">Histamine release</option>
+              <option value="Diseases_Hoarseness">Hoarseness</option>
+              <option value="Diseases_Hookworm infections">Hookworm infections</option>
+              <option value="Diseases_Hydrocele">Hydrocele</option>
+              <option value="Diseases_Hymenolepiasis">Hymenolepiasis</option>
+              <option value="Diseases_Hypercholesterolemia">Hypercholesterolemia</option>
+              <option value="Diseases_Hyperglycemia">Hyperglycemia</option>
+              <option value="Diseases_Hyperhidrosis">Hyperhidrosis</option>
+              <option value="Diseases_Hyperlipidemias">Hyperlipidemias</option>
+              <option value="Diseases_Hyperpigmentation">Hyperpigmentation</option>
+              <option value="Diseases_Hypersensitivity">Hypersensitivity</option>
+              <option value="Diseases_Hypertension">Hypertension</option>
+              <option value="Diseases_Hypertrophy">Hypertrophy</option>
+              <option value="Diseases_Hypnosis">Hypnosis</option>
+              <option value="Diseases_Hypnotics and sedatives">Hypnotics and sedatives</option>
+              <option value="Diseases_Hypochondriasis">Hypochondriasis</option>
+              <option value="Diseases_Hypoglycemia">Hypoglycemia</option>
+              <option value="Diseases_Hypoglycemic agents">Hypoglycemic agents</option>
+              <option value="Diseases_Hypohidrosis">Hypohidrosis</option>
+              <option value="Diseases_Hypolipidemic agents">Hypolipidemic agents</option>
+              <option value="Diseases_Hypomenorrhea">Hypomenorrhea</option>
+              <option value="Diseases_Hypophosphatemia">Hypophosphatemia</option>
+              <option value="Diseases_Hypotension">Hypotension</option>
+              <option value="Diseases_Hypothermia">Hypothermia</option>
+              <option value="Diseases_Hypoxia">Hypoxia</option>
+              <option value="Diseases_Hysteria">Hysteria</option>
+              <option value="Diseases_Immunomodulation">Immunomodulation</option>
+              <option value="Diseases_Immunostimulant">Immunostimulant</option>
+              <option value="Diseases_Immunosuppressive agents">Immunosuppressive agents</option>
+              <option value="Diseases_Impetigo">Impetigo</option>
+              <option value="Diseases_Improve blood circulation">Improve blood circulation</option>
+              <option value="Diseases_Increase leukocytes">Increase leukocytes</option>
+              <option value="Diseases_Increase lipoproteins">Increase lipoproteins</option>
+              <option value="Diseases_Increase physical endurance">Increase physical endurance</option>
+              <option value="Diseases_Infection">Infection</option>
+              <option value="Diseases_Infertility">Infertility</option>
+              <option value="Diseases_Inflammation">Inflammation</option>
+              <option value="Diseases_Inflammatory bowel diseases">Inflammatory bowel diseases</option>
+              <option value="Diseases_Influenza">Influenza</option>
+              <option value="Diseases_Influenza a virus">Influenza a virus</option>
+              <option value="Diseases_Inhalation">Inhalation</option>
+              <option value="Diseases_Inhibit mycelium">Inhibit mycelium</option>
+              <option value="Diseases_Injury of head">Injury of head</option>
+              <option value="Diseases_Injury of urinary tract">Injury of urinary tract</option>
+              <option value="Diseases_Insect bites and stings">Insect bites and stings</option>
+              <option value="Diseases_Insect repellents">Insect repellents</option>
+              <option value="Diseases_Insecticides">Insecticides</option>
+              <option value="Diseases_Insulin regulation">Insulin regulation</option>
+              <option value="Diseases_Intestinal diseases">Intestinal diseases</option>
+              <option value="Diseases_Ipecac">Ipecac</option>
+              <option value="Diseases_Irritable bowel syndrome">Irritable bowel syndrome</option>
+              <option value="Diseases_Irritant">Irritant</option>
+              <option value="Diseases_Jaundice">Jaundice</option>
+              <option value="Diseases_Joint diseases">Joint diseases</option>
+              <option value="Diseases_Joint dislocations">Joint dislocations</option>
+              <option value="Diseases_Jugular veins">Jugular veins</option>
+              <option value="Diseases_Kidney calculi">Kidney calculi</option>
+              <option value="Diseases_Kidney diseases">Kidney diseases</option>
+              <option value="Diseases_Labor pain">Labor pain</option>
+              <option value="Diseases_Lacerations">Lacerations</option>
+              <option value="Diseases_Lacrimal apparatus diseases">Lacrimal apparatus diseases</option>
+              <option value="Diseases_Lactation">Lactation</option>
+              <option value="Diseases_Lactation disorders">Lactation disorders</option>
+              <option value="Diseases_Laryngeal diseases">Laryngeal diseases</option>
+              <option value="Diseases_Laxatives">Laxatives</option>
+              <option value="Diseases_Leech infestation">Leech infestation</option>
+              <option value="Diseases_Leishmaniasis">Leishmaniasis</option>
+              <option value="Diseases_Leprosy">Leprosy</option>
+              <option value="Diseases_Leukemia">Leukemia</option>
+              <option value="Diseases_Leukorrhea">Leukorrhea</option>
+              <option value="Diseases_Lice infestations">Lice infestations</option>
+              <option value="Diseases_Lipid peroxidation">Lipid peroxidation</option>
+              <option value="Diseases_Lipoproteins">Lipoproteins</option>
+              <option value="Diseases_Lithiasis">Lithiasis</option>
+              <option value="Diseases_Liver diseases">Liver diseases</option>
+              <option value="Diseases_Liver failure">Liver failure</option>
+              <option value="Diseases_Liver injury">Liver injury</option>
+              <option value="Diseases_Low back pain">Low back pain</option>
+              <option value="Diseases_Lung diseases">Lung diseases</option>
+              <option value="Diseases_Lung neoplasms">Lung neoplasms</option>
+              <option value="Diseases_Lupus erythematosus">Lupus erythematosus</option>
+              <option value="Diseases_Luteolytic agents">Luteolytic agents</option>
+              <option value="Diseases_Lymphadenitis">Lymphadenitis</option>
+              <option value="Diseases_Malabsorption syndromes">Malabsorption syndromes</option>
+              <option value="Diseases_Malaria">Malaria</option>
+              <option value="Diseases_Malignant catarrh">Malignant catarrh</option>
+              <option value="Diseases_Malnutrition">Malnutrition</option>
+              <option value="Diseases_Mastitis">Mastitis</option>
+              <option value="Diseases_Mastodynia">Mastodynia</option>
+              <option value="Diseases_Measles">Measles</option>
+              <option value="Diseases_Melanoma">Melanoma</option>
+              <option value="Diseases_Memory disorders">Memory disorders</option>
+              <option value="Diseases_Menopause">Menopause</option>
+              <option value="Diseases_Menorrhagia">Menorrhagia</option>
+              <option value="Diseases_Menstrual cycle">Menstrual cycle</option>
+              <option value="Diseases_Menstruation">Menstruation</option>
+              <option value="Diseases_Menstruation disturbances">Menstruation disturbances</option>
+              <option value="Diseases_Menstruation-inducing agents">Menstruation-inducing agents</option>
+              <option value="Diseases_Mental disorders">Mental disorders</option>
+              <option value="Diseases_Metabolic disease">Metabolic disease</option>
+              <option value="Diseases_Metabolism">Metabolism</option>
+              <option value="Diseases_Metrorrhagia">Metrorrhagia</option>
+              <option value="Diseases_Microfilariae">Microfilariae</option>
+              <option value="Diseases_Migraine disorders">Migraine disorders</option>
+              <option value="Diseases_Miliaria">Miliaria</option>
+              <option value="Diseases_Miosis">Miosis</option>
+              <option value="Diseases_Mitogens">Mitogens</option>
+              <option value="Diseases_Molluscacides">Molluscacides</option>
+              <option value="Diseases_Mosaic viruses">Mosaic viruses</option>
+              <option value="Diseases_Mosquito control">Mosquito control</option>
+              <option value="Diseases_Mouth diseases">Mouth diseases</option>
+              <option value="Diseases_Mouth neoplasms">Mouth neoplasms</option>
+              <option value="Diseases_Mouthwashes">Mouthwashes</option>
+              <option value="Diseases_Mucus discharge">Mucus discharge</option>
+              <option value="Diseases_Mucus in stool">Mucus in stool</option>
+              <option value="Diseases_Mumps">Mumps</option>
+              <option value="Diseases_Muscle">Muscle</option>
+              <option value="Diseases_Muscle cramp">Muscle cramp</option>
+              <option value="Diseases_Muscle fatigue">Muscle fatigue</option>
+              <option value="Diseases_Muscle relaxation">Muscle relaxation</option>
+              <option value="Diseases_Muscle strength">Muscle strength</option>
+              <option value="Diseases_Muscle weakness">Muscle weakness</option>
+              <option value="Diseases_Muscular diseases">Muscular diseases</option>
+              <option value="Diseases_Muscular dystrophies">Muscular dystrophies</option>
+              <option value="Diseases_Muscular injury">Muscular injury</option>
+              <option value="Diseases_Musculoskeletal diseases">Musculoskeletal diseases</option>
+              <option value="Diseases_Musculoskeletal pain">Musculoskeletal pain</option>
+              <option value="Diseases_Myalgia">Myalgia</option>
+              <option value="Diseases_Mycoses">Mycoses</option>
+              <option value="Diseases_Mycotoxicosis">Mycotoxicosis</option>
+              <option value="Diseases_Mydriatics">Mydriatics</option>
+              <option value="Diseases_Myiasis">Myiasis</option>
+              <option value="Diseases_Myocardial infarction">Myocardial infarction</option>
+              <option value="Diseases_Myopia">Myopia</option>
+              <option value="Diseases_Nail diseases">Nail diseases</option>
+              <option value="Diseases_Narcotics">Narcotics</option>
+              <option value="Diseases_Nasal disease">Nasal disease</option>
+              <option value="Diseases_Nasal polyps">Nasal polyps</option>
+              <option value="Diseases_Nasopharyngeal neoplasms">Nasopharyngeal neoplasms</option>
+              <option value="Diseases_Nausea">Nausea</option>
+              <option value="Diseases_Neck pain">Neck pain</option>
+              <option value="Diseases_Nematode infections">Nematode infections</option>
+              <option value="Diseases_Neoplasms">Neoplasms</option>
+              <option value="Diseases_Nephritis">Nephritis</option>
+              <option value="Diseases_Nervous system diseases">Nervous system diseases</option>
+              <option value="Diseases_Neuralgia">Neuralgia</option>
+              <option value="Diseases_Neurasthenia">Neurasthenia</option>
+              <option value="Diseases_Neuritis">Neuritis</option>
+              <option value="Diseases_Neurodegenerative diseases">Neurodegenerative diseases</option>
+              <option value="Diseases_Neurodermatitis">Neurodermatitis</option>
+              <option value="Diseases_Neuromuscular agents">Neuromuscular agents</option>
+              <option value="Diseases_Neuromuscular blocking activity">Neuromuscular blocking activity</option>
+              <option value="Diseases_Neuroprotective agents">Neuroprotective agents</option>
+              <option value="Diseases_Neurotic disorders">Neurotic disorders</option>
+              <option value="Diseases_Neurotransmitter agents">Neurotransmitter agents</option>
+              <option value="Diseases_Night blindness">Night blindness</option>
+              <option value="Diseases_Nocturnal emission of semen">Nocturnal emission of semen</option>
+              <option value="Diseases_Nocturnal enuresis">Nocturnal enuresis</option>
+              <option value="Diseases_Nootropic agents">Nootropic agents</option>
+              <option value="Diseases_Nose neoplasms">Nose neoplasms</option>
+              <option value="Diseases_Obesity">Obesity</option>
+              <option value="Diseases_Oesophagostomiasis">Oesophagostomiasis</option>
+              <option value="Diseases_Ointments">Ointments</option>
+              <option value="Diseases_Oligospermia">Oligospermia</option>
+              <option value="Diseases_Oliguria">Oliguria</option>
+              <option value="Diseases_Opioid-related disorders">Opioid-related disorders</option>
+              <option value="Diseases_Oral ulcer">Oral ulcer</option>
+              <option value="Diseases_Orchitis">Orchitis</option>
+              <option value="Diseases_Osteoarthritis">Osteoarthritis</option>
+              <option value="Diseases_Osteomalacia">Osteomalacia</option>
+              <option value="Diseases_Osteoporosis">Osteoporosis</option>
+              <option value="Diseases_Osteosarcoma">Osteosarcoma</option>
+              <option value="Diseases_Otitis">Otitis</option>
+              <option value="Diseases_Otitis media">Otitis media</option>
+              <option value="Diseases_Otorrhea">Otorrhea</option>
+              <option value="Diseases_Oxytocics">Oxytocics</option>
+              <option value="Diseases_Pain">Pain</option>
+              <option value="Diseases_Papilloma">Papilloma</option>
+              <option value="Diseases_Paralysis">Paralysis</option>
+              <option value="Diseases_Paralysis of brain and spine">Paralysis of brain and spine</option>
+              <option value="Diseases_Paraplegia">Paraplegia</option>
+              <option value="Diseases_Parasympatholytics">Parasympatholytics</option>
+              <option value="Diseases_Paratyphoid fever">Paratyphoid fever</option>
+              <option value="Diseases_Parkinson disease">Parkinson disease</option>
+              <option value="Diseases_Parotitis">Parotitis</option>
+              <option value="Diseases_Parturition">Parturition</option>
+              <option value="Diseases_Pectoralis muscles">Pectoralis muscles</option>
+              <option value="Diseases_Pelvic pain">Pelvic pain</option>
+              <option value="Diseases_Peptic ulcer">Peptic ulcer</option>
+              <option value="Diseases_Pericarditis">Pericarditis</option>
+              <option value="Diseases_Periodontal abscess">Periodontal abscess</option>
+              <option value="Diseases_Periodontal diseases">Periodontal diseases</option>
+              <option value="Diseases_Periodontitis">Periodontitis</option>
+              <option value="Diseases_Peripheral nervous system diseases">Peripheral nervous system diseases</option>
+              <option value="Diseases_Pesticides">Pesticides</option>
+              <option value="Diseases_Pharyngitis">Pharyngitis</option>
+              <option value="Diseases_Photosensitivity disorders">Photosensitivity disorders</option>
+              <option value="Diseases_Plague">Plague</option>
+              <option value="Diseases_Platelet aggregation">Platelet aggregation</option>
+              <option value="Diseases_Platelet aggregation inhibitors">Platelet aggregation inhibitors</option>
+              <option value="Diseases_Pleurisy">Pleurisy</option>
+              <option value="Diseases_Pneumonia">Pneumonia</option>
+              <option value="Diseases_Poliomyelitis">Poliomyelitis</option>
+              <option value="Diseases_Poliovirus">Poliovirus</option>
+              <option value="Diseases_Polyuria">Polyuria</option>
+              <option value="Diseases_Post-traumatic headache">Post-traumatic headache</option>
+              <option value="Diseases_Postnatal care">Postnatal care</option>
+              <option value="Diseases_Postpartum hemorrhage">Postpartum hemorrhage</option>
+              <option value="Diseases_Pre-eclampsia">Pre-eclampsia</option>
+              <option value="Diseases_Pregnancy">Pregnancy</option>
+              <option value="Diseases_Pregnancy complications">Pregnancy complications</option>
+              <option value="Diseases_Premature ejaculation">Premature ejaculation</option>
+              <option value="Diseases_Premenstrual syndrome">Premenstrual syndrome</option>
+              <option value="Diseases_Prenatal care">Prenatal care</option>
+              <option value="Diseases_Pressure ulcer">Pressure ulcer</option>
+              <option value="Diseases_Proctitis">Proctitis</option>
+              <option value="Diseases_Prostatic hyperplasia">Prostatic hyperplasia</option>
+              <option value="Diseases_Prostatic neoplasms">Prostatic neoplasms</option>
+              <option value="Diseases_Prurigo">Prurigo</option>
+              <option value="Diseases_Pruritus">Pruritus</option>
+              <option value="Diseases_Pruritus ani">Pruritus ani</option>
+              <option value="Diseases_Pruritus vulvae">Pruritus vulvae</option>
+              <option value="Diseases_Psoriasis">Psoriasis</option>
+              <option value="Diseases_Psychophysiologic disorders">Psychophysiologic disorders</option>
+              <option value="Diseases_Psychotropic drugs">Psychotropic drugs</option>
+              <option value="Diseases_Puerperal disorders">Puerperal disorders</option>
+              <option value="Diseases_Pulmonary eosinophilia">Pulmonary eosinophilia</option>
+              <option value="Diseases_Pyelonephritis">Pyelonephritis</option>
+              <option value="Diseases_Pyoderma">Pyoderma</option>
+              <option value="Diseases_Rabies">Rabies</option>
+              <option value="Diseases_Radiation injuries">Radiation injuries</option>
+              <option value="Diseases_Radiation-protective agents">Radiation-protective agents</option>
+              <option value="Diseases_Rat-bite fever">Rat-bite fever</option>
+              <option value="Diseases_Rectal diseases">Rectal diseases</option>
+              <option value="Diseases_Rectal fistula">Rectal fistula</option>
+              <option value="Diseases_Rectal prolapse">Rectal prolapse</option>
+              <option value="Diseases_Relaxation">Relaxation</option>
+              <option value="Diseases_Renal colic">Renal colic</option>
+              <option value="Diseases_Respiratory sounds (Wheezing)">Respiratory sounds (Wheezing)</option>
+              <option value="Diseases_Respiratory system agents">Respiratory system agents</option>
+              <option value="Diseases_Respiratory tract diseases">Respiratory tract diseases</option>
+              <option value="Diseases_Respiratory tract infections">Respiratory tract infections</option>
+              <option value="Diseases_Retinal disorder">Retinal disorder</option>
+              <option value="Diseases_Rheumatic diseases">Rheumatic diseases</option>
+              <option value="Diseases_Rheumatic fever">Rheumatic fever</option>
+              <option value="Diseases_Rheumatoid arthritis">Rheumatoid arthritis</option>
+              <option value="Diseases_Rhinitis">Rhinitis</option>
+              <option value="Diseases_Rickets">Rickets</option>
+              <option value="Diseases_Rickettsia">Rickettsia</option>
+              <option value="Diseases_Rinderpest">Rinderpest</option>
+              <option value="Diseases_Salivation">Salivation</option>
+              <option value="Diseases_Sarcoma">Sarcoma</option>
+              <option value="Diseases_Scabies">Scabies</option>
+              <option value="Diseases_Scalp dermatoses">Scalp dermatoses</option>
+              <option value="Diseases_Scarlet fever">Scarlet fever</option>
+              <option value="Diseases_Schistosoma">Schistosoma</option>
+              <option value="Diseases_Schistosomiasis">Schistosomiasis</option>
+              <option value="Diseases_Sciatica">Sciatica</option>
+              <option value="Diseases_Scorpion stings">Scorpion stings</option>
+              <option value="Diseases_Scurvy">Scurvy</option>
+              <option value="Diseases_Seizures">Seizures</option>
+              <option value="Diseases_Seminal vesicles">Seminal vesicles</option>
+              <option value="Diseases_Sepsis">Sepsis</option>
+              <option value="Diseases_Sexual debility">Sexual debility</option>
+              <option value="Diseases_Sexually transmitted diseases">Sexually transmitted diseases</option>
+              <option value="Diseases_Shock">Shock</option>
+              <option value="Diseases_Sialorrhea">Sialorrhea</option>
+              <option value="Diseases_Sinusitis">Sinusitis</option>
+              <option value="Diseases_Skin care">Skin care</option>
+              <option value="Diseases_Skin diseases">Skin diseases</option>
+              <option value="Diseases_Skin neoplasms">Skin neoplasms</option>
+              <option value="Diseases_Skin ulcer">Skin ulcer</option>
+              <option value="Diseases_Sleep aids">Sleep aids</option>
+              <option value="Diseases_Sleep initiation and maintenance disorders">Sleep initiation and maintenance disorders</option>
+              <option value="Diseases_Smallpox">Smallpox</option>
+              <option value="Diseases_Snake bites">Snake bites</option>
+              <option value="Diseases_Sneezing">Sneezing</option>
+              <option value="Diseases_Spasm">Spasm</option>
+              <option value="Diseases_Spermatocidal agents">Spermatocidal agents</option>
+              <option value="Diseases_Spermatogenesis">Spermatogenesis</option>
+              <option value="Diseases_Spider bites">Spider bites</option>
+              <option value="Diseases_Spinal diseases">Spinal diseases</option>
+              <option value="Diseases_Splenic diseases">Splenic diseases</option>
+              <option value="Diseases_Splenomegaly">Splenomegaly</option>
+              <option value="Diseases_Sprains and strains">Sprains and strains</option>
+              <option value="Diseases_Sterilization">Sterilization</option>
+              <option value="Diseases_Stomach diseases">Stomach diseases</option>
+              <option value="Diseases_Stomach neoplasms">Stomach neoplasms</option>
+              <option value="Diseases_Stomach ulcer">Stomach ulcer</option>
+              <option value="Diseases_Stomatitis">Stomatitis</option>
+              <option value="Diseases_Stress">Stress</option>
+              <option value="Diseases_Stroke">Stroke</option>
+              <option value="Diseases_Stuttering">Stuttering</option>
+              <option value="Diseases_Sunburn">Sunburn</option>
+              <option value="Diseases_Sunstroke">Sunstroke</option>
+              <option value="Diseases_Suppuration">Suppuration</option>
+              <option value="Diseases_Sweating">Sweating</option>
+              <option value="Diseases_Sympatholytics">Sympatholytics</option>
+              <option value="Diseases_Sympathomimetics">Sympathomimetics</option>
+              <option value="Diseases_Syncope">Syncope</option>
+              <option value="Diseases_Synovitis">Synovitis</option>
+              <option value="Diseases_Syphilis">Syphilis</option>
+              <option value="Diseases_Tachycardia">Tachycardia</option>
+              <option value="Diseases_Taste disorders">Taste disorders</option>
+              <option value="Diseases_Tetanus">Tetanus</option>
+              <option value="Diseases_Thirst">Thirst</option>
+              <option value="Diseases_Thoracic diseases">Thoracic diseases</option>
+              <option value="Diseases_Thrombocytopenia">Thrombocytopenia</option>
+              <option value="Diseases_Thrombosis">Thrombosis</option>
+              <option value="Diseases_Thrombotic microangiopathies">Thrombotic microangiopathies</option>
+              <option value="Diseases_Thyroid diseases">Thyroid diseases</option>
+              <option value="Diseases_Thyrotoxicosis">Thyrotoxicosis</option>
+              <option value="Diseases_Tick infestations">Tick infestations</option>
+              <option value="Diseases_Tinea">Tinea</option>
+              <option value="Diseases_Tinea pedis">Tinea pedis</option>
+              <option value="Diseases_Tocolytic agents">Tocolytic agents</option>
+              <option value="Diseases_Tongue diseases">Tongue diseases</option>
+              <option value="Diseases_Tonsillitis">Tonsillitis</option>
+              <option value="Diseases_Tooth diseases">Tooth diseases</option>
+              <option value="Diseases_Tooth mobility">Tooth mobility</option>
+              <option value="Diseases_Toothache">Toothache</option>
+              <option value="Diseases_Toothbrushing">Toothbrushing</option>
+              <option value="Diseases_Tracheitis">Tracheitis</option>
+              <option value="Diseases_Trachoma">Trachoma</option>
+              <option value="Diseases_Tranquilizing agents">Tranquilizing agents</option>
+              <option value="Diseases_Trauma">Trauma</option>
+              <option value="Diseases_Tremor">Tremor</option>
+              <option value="Diseases_Trichomonas infections">Trichomonas infections</option>
+              <option value="Diseases_Trismus">Trismus</option>
+              <option value="Diseases_Trypsin inhibitors">Trypsin inhibitors</option>
+              <option value="Diseases_Tuberculosis">Tuberculosis</option>
+              <option value="Diseases_Typhoid fever">Typhoid fever</option>
+              <option value="Diseases_Ulcer">Ulcer</option>
+              <option value="Diseases_Unconsciousness">Unconsciousness</option>
+              <option value="Diseases_Ureteral calculi">Ureteral calculi</option>
+              <option value="Diseases_Urethral discharge">Urethral discharge</option>
+              <option value="Diseases_Urethral diseases">Urethral diseases</option>
+              <option value="Diseases_Urethritis">Urethritis</option>
+              <option value="Diseases_Urinary bladder">Urinary bladder</option>
+              <option value="Diseases_Urinary bladder calculi">Urinary bladder calculi</option>
+              <option value="Diseases_Urinary bladder diseases">Urinary bladder diseases</option>
+              <option value="Diseases_Urinary bladder fistula">Urinary bladder fistula</option>
+              <option value="Diseases_Urinary calculi">Urinary calculi</option>
+              <option value="Diseases_Urinary incontinence">Urinary incontinence</option>
+              <option value="Diseases_Urinary retention">Urinary retention</option>
+              <option value="Diseases_Urinary tract infections">Urinary tract infections</option>
+              <option value="Diseases_Urination disorders">Urination disorders</option>
+              <option value="Diseases_Urogenital system">Urogenital system</option>
+              <option value="Diseases_Urolithiasis">Urolithiasis</option>
+              <option value="Diseases_Urologic diseases">Urologic diseases</option>
+              <option value="Diseases_Urticaria">Urticaria</option>
+              <option value="Diseases_Uterine cervical erosion">Uterine cervical erosion</option>
+              <option value="Diseases_Uterine cervical neoplasms">Uterine cervical neoplasms</option>
+              <option value="Diseases_Uterine contraction">Uterine contraction</option>
+              <option value="Diseases_Uterine diseases">Uterine diseases</option>
+              <option value="Diseases_Uterine hemorrhage">Uterine hemorrhage</option>
+              <option value="Diseases_Uterine neoplasms">Uterine neoplasms</option>
+              <option value="Diseases_Uveitis">Uveitis</option>
+              <option value="Diseases_Uvular hypertrophy">Uvular hypertrophy</option>
+              <option value="Diseases_Vaccinia virus">Vaccinia virus</option>
+              <option value="Diseases_Vaginal discharge">Vaginal discharge</option>
+              <option value="Diseases_Vaginal diseases">Vaginal diseases</option>
+              <option value="Diseases_Vaginitis">Vaginitis</option>
+              <option value="Diseases_Varicose veins">Varicose veins</option>
+              <option value="Diseases_Vascular purpura">Vascular purpura</option>
+              <option value="Diseases_Vasoconstrictor agents">Vasoconstrictor agents</option>
+              <option value="Diseases_Vasodilator agents">Vasodilator agents</option>
+              <option value="Diseases_Vertigo">Vertigo</option>
+              <option value="Diseases_Vesicular eruption">Vesicular eruption</option>
+              <option value="Diseases_Veterinary medicine">Veterinary medicine</option>
+              <option value="Diseases_Visceral disorders">Visceral disorders</option>
+              <option value="Diseases_Visceral obstructions">Visceral obstructions</option>
+              <option value="Diseases_Vision disorders">Vision disorders</option>
+              <option value="Diseases_Visual perception">Visual perception</option>
+              <option value="Diseases_Vitamin A deficiency">Vitamin A deficiency</option>
+              <option value="Diseases_Vitamin B1 deficiancy">Vitamin B1 deficiancy</option>
+              <option value="Diseases_Vitiligo">Vitiligo</option>
+              <option value="Diseases_Vomiting">Vomiting</option>
+              <option value="Diseases_Warts">Warts</option>
+              <option value="Diseases_Washerman's itch">Washerman's itch</option>
+              <option value="Diseases_Wasp sting">Wasp sting</option>
+              <option value="Diseases_Wasting syndrome">Wasting syndrome</option>
+              <option value="Diseases_Weight loss">Weight loss</option>
+              <option value="Diseases_Whitlows">Whitlows</option>
+              <option value="Diseases_Whooping cough">Whooping cough</option>
+              <option value="Diseases_Wound healing">Wound healing</option>
+              <option value="Diseases_Wound infection">Wound infection</option>
+              <option value="Diseases_Wounds and injuries">Wounds and injuries</option>
+              <option value="Diseases_Xerostomia">Xerostomia</option>
+              <option value="Diseases_Yaws">Yaws</option>
+              <option value="Diseases_Yellow fever">Yellow fever</option>
+              <option value="Diseases_allergic">allergic</option>
+              <option value="Diseases_amebic">amebic</option>
+              <option value="Diseases_and nutrition">and nutrition</option>
+              <option value="Diseases_aphthous">aphthous</option>
+              <option value="Diseases_bacterial">bacterial</option>
+              <option value="Diseases_barrier">barrier</option>
+              <option value="Diseases_bone">bone</option>
+              <option value="Diseases_bovine">bovine</option>
+              <option value="Diseases_cardiac">cardiac</option>
+              <option value="Diseases_cardiogenic">cardiogenic</option>
+              <option value="Diseases_cutaneous">cutaneous</option>
+              <option value="Diseases_ehrlich tumor">ehrlich tumor</option>
+              <option value="Diseases_familial">familial</option>
+              <option value="Diseases_female">female</option>
+              <option value="Diseases_food">food</option>
+              <option value="Diseases_generalized">generalized</option>
+              <option value="Diseases_glandular and epithelial">glandular and epithelial</option>
+              <option value="Diseases_hdl">hdl</option>
+              <option value="Diseases_hemolytic">hemolytic</option>
+              <option value="Diseases_hiatal">hiatal</option>
+              <option value="Diseases_human">human</option>
+              <option value="Diseases_infantile">infantile</option>
+              <option value="Diseases_infectious">infectious</option>
+              <option value="Diseases_interstitial">interstitial</option>
+              <option value="Diseases_ldl">ldl</option>
+              <option value="Diseases_lepromatous">lepromatous</option>
+              <option value="Diseases_local">local</option>
+              <option value="Diseases_lymph node">lymph node</option>
+              <option value="Diseases_lymphoid">lymphoid</option>
+              <option value="Diseases_male">male</option>
+              <option value="Diseases_neurogenic">neurogenic</option>
+              <option value="Diseases_oral">oral</option>
+              <option value="Diseases_parasitic">parasitic</option>
+              <option value="Diseases_pharmaceutical">pharmaceutical</option>
+              <option value="Diseases_physiological">physiological</option>
+              <option value="Diseases_poisonous">poisonous</option>
+              <option value="Diseases_psychological">psychological</option>
+              <option value="Diseases_pulmonary">pulmonary</option>
+              <option value="Diseases_renal cell">renal cell</option>
+              <option value="Diseases_reproductive">reproductive</option>
+              <option value="Diseases_scirrhous">scirrhous</option>
+              <option value="Diseases_seasonal">seasonal</option>
+              <option value="Diseases_seborrheic">seborrheic</option>
+              <option value="Diseases_sickle cell">sickle cell</option>
+              <option value="Diseases_skeletal">skeletal</option>
+              <option value="Diseases_spontaneous">spontaneous</option>
+              <option value="Diseases_strength and stamina">strength and stamina</option>
+              <option value="Diseases_systemic">systemic</option>
+              <option value="Diseases_ulcerative">ulcerative</option>
+              <option value="Diseases_variant">variant</option>
+              <option value="Diseases_viral">viral</option>
+              <option value="Diseases_visceral">visceral</option>
+              <option value="Diseases_vulvovaginal">vulvovaginal</option>
+              <option value="Diseases_walker">walker</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-secondary btn-lg">
+              Get Recommendation
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Format plant result -->
+
+    {% if plants %}
+    <div class="container2 my-3 mt-4">
+      {% for plant in plants %}
+
+      
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <img src="{{ url_for('static', filename=images) }}" style="width: 70px; height: 70px;" class="card-img-right" alt="...">
+		 
+        <div class="card-body">
+          {% for feature in plant %}
+          <div class="row mt-4">
+            <div class="col-md-8">
+          <p class="card-text">{{feature|safe}}</p>
+        </div>
+
+        </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+
+    {% endif %}
+
+    {% if plantimages %}
+    <div class="container2 my-3 mt-4">
+      {% for plant in plantimages %}
+
+      <div class="row">
+        <div class="col-sm-6">
+            
+          <div class="card">
+
+            <div class="card-body">
+                <div>
+      
+                    <img src="{{ url_for('static', filename=images) }}" style="width: 100px; height: 100px; margin-top: 20px;" alt="...">
+            
+                  </div>
+
+                {% for feature in plant %}
+              <div>
+      
+                <p class="card-text">{{feature|safe}}</p>
+                
+              </div>
+              {% endfor %}
+              
+              
+            </div>
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      {% endfor %}
+      </div>
+
+    {% endif %}
+
+    {% if plantitems %}
+    <div class="container2 my-3 mt-4">
+
+      {% for plant in plantitems %}
+
+      <div class="card-deck"> 
+            
+          <div class="card">
+
+            <div class="card-block"> 
+                <div>
+      
+                    <img src="{{ url_for('static', filename=images) }}" style="width: 100px; height: 100px; margin: 20px;" alt="...">
+            
+                  </div>
+
+                {% for feature in plant %}
+              <div>
+      
+                <p class="card-text">{{feature|safe}}</p>
+                
+              </div>
+              {% endfor %}
+              
+              
+            </div>
+            
+          </div>
+          
+        
+      </div>
+      {% endfor %}
+      </div>
+
+    {% endif %}
+
+    {% if plantimg %}
+    <div class="container2 my-3 mt-4">
+      {% for plant in plantimg %}
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="row">
+        <div class="card-body">
+            
+            <div class="col-sm-2">
+      
+                <img src="{{ url_for('static', filename=images) }}" style="width: 100px; height: 100px; margin: 20px;" alt="...">
+        
+              </div>
+            <div>
+          {% for feature in plant %}
+          <p class="card-text">{{feature|safe}} <br /></p>
+          {% endfor %}
+        </div>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if planting %}
+    <div class="container2 my-3 mt-4">
+      {% for i in range(total) %}
+
+      <div class="card bg-light my-3 mt-4" style="width: 71rem">
+        <div class="row">
+        <div class="card-body">
+            
+          {% if images_flag[i] %}
+            <div class="row">
+                <div class="col-sm-2">
+                <img src="{{ url_for('static', filename=images[i][0]) }}" style="width: 100px; height: 100px; margin: 20px; " alt="...">
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][1]) }}" style="width: 100px; height: 100px; margin: 20px; " alt="...">
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][2]) }}" style="width: 100px; height: 100px; margin: 20px; " alt="...">
+                </div>
+    
+                <div class="col-sm-2">
+                        <img src="{{ url_for('static', filename=images[i][3]) }}" style="width: 100px; height: 100px; margin: 20px; " alt="..." >
+                </div>
+
+                <div class="col-sm-2">
+                    <img src="{{ url_for('static', filename=images[i][4]) }}" style="width: 100px; height: 100px; margin: 20px; " alt="...">
+            </div>
+              </div>
+              {% endif %}
+
+            <div>
+
+          {% for plantinfo in planting[i] %}
+          <p class="card-text">{{plantinfo|safe}} <br /></p>
+          {% endfor %}
+        </div>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+    <script>
+      new MultiSelectTag("diseases", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+
+      new MultiSelectTag("category", {
+        rounded: true, // default true
+        shadow: true, // default false
+        placeholder: "Search", // default Search...
+        tagColor: {
+          textColor: "#327b2c",
+          borderColor: "#92e681",
+          bgColor: "#eaffe6",
+        },
+        onChange: function (values) {
+          console.log(values);
+        },
+      });
+    </script>
+  </body>
+</html>
